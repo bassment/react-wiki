@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Login from './Login';
+import PageList from './PageList';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class App extends React.Component {
 
             <Login user={this.state.user} setUser={this.setUser} />
 
-            PageList
+            <PageList user={this.state.user} />
           </div>
           <div className="nine columns">
             {this.props.children}

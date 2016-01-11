@@ -49,7 +49,7 @@ router.post('/api/signin', function(req, res) {
     return res.json({ signedIn: false, message: 'No username or password' });
 
   users.child(username).once('value', function(snapshot) {
-    if (!snapshot.exists() && snapshot.child('passwordHash').val() !== hash(password)) {
+    if (!snapshot.exists() || snapshot.child('passwordHash').val() !== hash(password)) {
       return res.json({ signedIn: false, message: 'wrong username or password' });
     }
 

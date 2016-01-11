@@ -5,7 +5,9 @@ import createHashHistory from 'history/lib/createHashHistory';
 import App from './components/App.js';
 
 const routes = (
-  <Route path="/" component={App} />
+  <Route path="/" component={App}>
+    <Route path="page/:id" component={App} />
+  </Route>
 );
 
 ReactDOM.render(<Router
