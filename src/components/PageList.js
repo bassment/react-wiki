@@ -21,7 +21,7 @@ export default class PageList extends React.Component {
     let items = this.state.loaded ? Object.keys(this.state.pages).map(id => {
       return (
         <li key={id}>
-          <Link to="page" params={ { id: id } }>{this.state.pages[id].title}</Link>
+          <Link to={'/page/' + id } params={ { id: id } }>{this.state.pages[id].title}</Link>
         </li>
       );
     }) : [<li key="loading"> <em>Loading...</em> </li>];
@@ -45,7 +45,8 @@ export default class PageList extends React.Component {
   update = evt => this.setState({ newPageTitle: evt.target.value });
   createPage = evt => {
     if (evt.charCode !== 13) return;
-    API.pages.push({ title: this.state.newPageTitle });
+    var id = API.pages.push({ title: this.state.newPageTitle });
+    this.props.history.pushState(null, '/page/' + id.key());
     this.setState({ newPageTitle: '' });
   };
 }

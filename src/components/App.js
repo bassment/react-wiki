@@ -1,15 +1,10 @@
-import React from 'react';
+import React, { PropTypes} from 'react';
 
 import Login from './Login';
 import PageList from './PageList';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: USER,
-    };
-  }
+  state = { user: USER };
 
   render() {
     return (
@@ -20,10 +15,11 @@ export default class App extends React.Component {
 
             <Login user={this.state.user} setUser={this.setUser} />
 
-            <PageList user={this.state.user} />
+            <PageList user={this.state.user} history={this.props.history} />
+
           </div>
           <div className="nine columns">
-            {this.props.children}
+            {this.props.children ? React.cloneElement(this.props.children, { user: this.state.user }) : null}
           </div>
         </div>
       </div>
