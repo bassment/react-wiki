@@ -26469,9 +26469,39 @@ var PageList = function (_React$Component) {
     }, _this.update = function (evt) {
       return _this.setState({ newPageTitle: evt.target.value });
     }, _this.createPage = function (evt) {
+      var pageNames = Object.keys(_this.state.pages);
       if (evt.charCode !== 13) return;
-      var id = API.pages.push({ title: _this.state.newPageTitle });
-      _this.props.history.pushState(null, '/page/' + id.key());
+      if (!_this.state.newPageTitle) return;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = pageNames[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var name = _step.value;
+
+          if (_this.state.newPageTitle === name) {
+            _this.setState({ newPageTitle: '' });
+            return;
+          };
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      API.pages.child(_this.state.newPageTitle).set({ title: _this.state.newPageTitle });
+      _this.props.history.pushState(null, '/page/' + _this.state.newPageTitle);
       _this.setState({ newPageTitle: '' });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }

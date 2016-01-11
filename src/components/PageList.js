@@ -44,9 +44,18 @@ export default class PageList extends React.Component {
 
   update = evt => this.setState({ newPageTitle: evt.target.value });
   createPage = evt => {
+    let pageNames = Object.keys(this.state.pages);
     if (evt.charCode !== 13) return;
-    var id = API.pages.push({ title: this.state.newPageTitle });
-    this.props.history.pushState(null, '/page/' + id.key());
+    if (!this.state.newPageTitle) return;
+    for (let name of pageNames) {
+      if (this.state.newPageTitle === name) {
+        this.setState({ newPageTitle: '' });
+        return;
+      };
+    }
+
+    API.pages.child(this.state.newPageTitle).set({ title: this.state.newPageTitle });
+    this.props.history.pushState(null, '/page/' + this.state.newPageTitle);
     this.setState({ newPageTitle: '' });
   };
 }
