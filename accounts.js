@@ -5,7 +5,7 @@ var firebase = new Firebase('https://react-wikipedia.firebaseio.com/');
 var users = firebase.child('users');
 
 function hash(password) {
-  return crypto.createHash('sha12').update(password).digest('hex');
+  return crypto.createHash('sha512').update(password).digest('hex');
 }
 
 var router = require('express').Router();
@@ -21,7 +21,7 @@ router.post('/api/signup', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
-  if (!username || ! password)
+  if (!username || !password)
     return res.json({ signedIn: false, message: 'No username or password' });
 
   users.child(username).once('value', function(snapshot) {
@@ -34,7 +34,7 @@ router.post('/api/signup', function(req, res) {
       passwordHash: hash(password),
     };
 
-    user.child(username).set(userObj);
+    users.child(username).set(userObj);
     req.session.user = userObj;
 
     res.json({ signedIn: true, user: userObj });

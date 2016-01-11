@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "server.js",
   "scripts": {
-    "build:js": "browserify ./src/app.js -t [ babelify --presets [ es2015 react ] ] --outfile public/all.js",
+    "build:js": "browserify ./src/app.js -t [ babelify --presets [ es2015 react stage-0 ] ] --outfile public/all.js",
     "build": "watch 'npm run build:js' ./src"
   },
   "license": "ISC",
@@ -11,6 +11,7 @@
     "babel-eslint": "^5.0.0-beta6",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "eslint-plugin-react": "^3.14.0",
