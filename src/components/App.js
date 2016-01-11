@@ -11,7 +11,7 @@ export default class App extends React.Component {
       <div>
         <div className="row">
           <div className="three columns">
-            <h1>Wiki</h1>
+            <h1>Biographies</h1>
 
             <Login user={this.state.user} setUser={this.setUser} />
 
